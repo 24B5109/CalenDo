@@ -46,7 +46,7 @@
 
 <%= link_to '日記をかく', new_blog_path %>
 
-<%= month_calendar events: @blogs do |date, blogs| %>
+<%= month_calendar events: @blogs,attribute: :start_time, start_date_param: :start_date do |date, blogs| %>
   <%= date.day %>
 
   <% blogs.each do |blog| %>
