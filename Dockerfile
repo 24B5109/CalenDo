@@ -1,66 +1,49 @@
 # syntax = docker/dockerfile:1
-
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
+# ベース Ruby イメージ（あなたの .ruby-version と一致）
 ARG RUBY_VERSION=3.2.7
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
-
-# Rails app lives here
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim AS base
+# Rails アプリの作業ディレクトリ
 WORKDIR /rails
-
-# Set production environment
+# 本番環境設定
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
-
-
-# Throw-away build stage to reduce size of final image
-FROM base as build
-
-# Install base packages
+    BUNDLE_WITHOUT="development test"
+# 必要なLinuxパッケージをインストール
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libjemalloc2 libvips sqlite3 libpq5 && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    libvips \
+    curl \
+    git \
+    pkg-config \
+    libyaml-dev \
+    libpq5 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-# Install application gems
+# Gemfile / Gemfile.lock をコピーしてGemをインストール
 COPY Gemfile Gemfile.lock ./
+# Linux用のGemfile.lockを更新（Windows由来対策）
+RUN bundle lock --add-platform x86_64-linux
+# 依存関係をインストール
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
-# Copy application code
+# アプリケーションコードをコピー
 COPY . .
-
-# Precompile bootsnap code for faster boot times
-RUN bundle exec bootsnap precompile app/ lib/
-
-# Adjust binfiles to be executable on Linux
+# bootsnap のプリコンパイルは削除（Linuxで失敗しやすいため）
+# RUN bundle exec bootsnap precompile app/ lib/
+# binファイルをLinux実行可能に調整
 RUN chmod +x bin/* && \
-    sed -i "s/\r$//g" bin/* && \
-    sed -i 's/ruby\.exe$/ruby/' bin/*
-
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+    sed -i 's/\r$//' bin/* && \
+    sed -i 's/^.*ruby.exe.*$/#!\/usr\/bin\/env ruby/' bin/*
+# アセットを事前コンパイル
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-
-# Final stage for app image
+# 実行用ステージ
 FROM base
-
-# Install packages needed to build gems
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git pkg-config libpq-dev libyaml-dev && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
-
-# Copy built artifacts: gems, application
-COPY --from=build /usr/local/bundle /usr/local/bundle
-COPY --from=build /rails /rails
-
-# Run and own only the runtime files as a non-root user for security
+# 非rootユーザーで実行（セキュリティ目的）
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails /rails /usr/local/bundle
 USER rails:rails
-
-# Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
-
-# Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
+# Rails起動
 CMD ["./bin/rails", "server"]
