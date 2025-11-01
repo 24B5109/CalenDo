@@ -46,4 +46,4 @@ RUN useradd rails --create-home --shell /bin/bash && \
 USER rails:rails
 EXPOSE 3000
 # Rails起動
-CMD ["./bin/rails", "server"]
+CMD ["bash", "-lc", "bundle exec rails db:prepare && ./bin/rails server"]
