@@ -1,0 +1,15 @@
+<h1>Working Person</h1>
+<p>名前 : <%= @user.name %></p>
+<p>メールアドレス : <%= @user.email %></p>
+<p>プロフィール : <%= @user.profile %></p>
+
+<% if current_user.id == @user.id %>
+  <%= link_to "編集する", edit_user_registration_path %>
+<% end %>
+
+<h2>Working Personの投稿一覧</h2>
+<% @user.blogs.each do |t| %>
+  <%= t.user.name %>
+  <%= t.title %>
+<% end %>
+<%= link_to "Blog一覧に戻る", blogs_path %>

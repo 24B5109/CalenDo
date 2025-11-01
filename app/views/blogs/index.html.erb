@@ -1,0 +1,68 @@
+
+<p id="notice"><%= notice %></p>
+
+<% if current_user.kaisuu == 1 %>
+<h1>前日の投稿がされていません！
+今日投稿してみませんか？</h1>
+<% else %>
+現在の連続投稿回数 <%= current_user.kaisuu %>回
+#もしあなたが投稿の連続回数を表示したい場合はこれを記入してください。
+<% end %>
+
+<h1>目標</h1>
+<%= link_to "新規目標設定", new_tweet_path %>
+<% @tweets.each do |t| %>
+        <%= t.goal %> 
+    <%= link_to "編集する", edit_tweet_path(t.id) %>
+  <% end %>
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>内容</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+<% if user_signed_in? %>
+  <%= link_to "マイページ", user_path(current_user.id) %>
+<% end %>
+  <tbody>
+    <% @blogs.each do |blog| %>
+      <tr>
+        <td><%= blog.title %></td>
+        <td><%= blog.content %></td>
+        <td><%= link_to 'Show', blog %></td>
+        <td><%= link_to 'Edit', edit_blog_path(blog.id) %></td>
+        <td><%= button_to 'Destroy',blog_path(blog.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td> <% if blog.image.attached? %>
+            <%= image_tag blog.image, size: '250x200'%>
+        <% end %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '日記をかく', new_blog_path %>
+
+<%= month_calendar events: @blogs do |date, blogs| %>
+  <%= date.day %>
+
+  <% blogs.each do |blog| %>
+    <div>
+      <%= link_to blog.title, blog %>
+    </div>
+  <% end %>
+<% end %>
+<%= form_tag({controller:"blogs",action:"index"}, method: :get) do %>
+    <% Tag.all.each do |t| %>
+        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+    <% end %>
+    <%= submit_tag '検索' %>
+<% end %>
+<%= form_tag({controller:"blogs",action:"index"}, method: :get) do %>
+    <%= text_field_tag :tag %>
+    <%= submit_tag 'タグを追加' %>
+<% end %>
+

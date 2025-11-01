@@ -1,0 +1,10 @@
+<h1>目標設定ページ</h1>
+<h3></h3>
+<%= form_for @tweet do |f| %>
+  <div class="field">
+    <%= f.label :goal %>
+    <%= f.text_field :goal, :size => 30 %>
+  </div>
+　<%= f.submit "目標にする" %>
+<% end %>
+<%= link_to "目標設定に戻る", tweets_path %>

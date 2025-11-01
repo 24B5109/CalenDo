@@ -1,0 +1,12 @@
+<h1>目標設定ページ</h1>
+<%= link_to "新規目標設定", new_tweet_path %>
+<%= link_to 'blog一覧', blogs_path %>
+<div class="tweets-container">
+  <% @tweets.each do |t| %>
+    <div class="tweet">
+      <%= t.goal %>
+    </div>
+    <%= link_to "編集する", edit_tweet_path(t.id) %>
+    <%= button_to "削除する", tweet_path(t.id), method: :delete %>
+  <% end %>
+</div>

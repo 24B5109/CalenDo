@@ -1,0 +1,37 @@
+<%= form_with(model: @blog, local: true) do |form| %>
+   <div class='form-group'>
+        <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
+
+  <div class="title">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+   <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+   </div>
+
+    <div class="time">
+    <%= form.label :start_time %>
+    <%= form.datetime_select :start_time %>
+  </div>
+  
+  <div class="content">
+    <%= form.label :content %>
+    <%= form.text_field :content %>
+  </div>
+
+
+  <div class="submit">
+    <%= form.submit %>
+  </div>
+
+<% end %>
