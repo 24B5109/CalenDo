@@ -12,7 +12,7 @@ class BackfillAndDefaultStartTimeOnBlogs < ActiveRecord::Migration[7.1]
     MBlog.where("start_time < ?", Time.new(1900,1,1)).update_all(start_time: Time.current)
 
     # 以後の新規レコードのデフォルトを現在時刻に
-    change_column_default :blogs, :start_time, -> { "CURRENT_TIMESTAMP" }
+    change_column_default :blogs, :start_time, -> { 'CURRENT_TIMESTAMP' }
   end
 
   def down
