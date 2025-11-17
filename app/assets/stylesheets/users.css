@@ -1,0 +1,68 @@
+
+.users h1{
+    font-size: 70px;
+    font-family: "Libre Baskerville";
+    display: flex;
+    margin-left: 500px;
+    align-items: center;
+}
+.btn-link {
+  background-color: rgba(255, 255, 255, 0.79);  /* 落ち着いた青で黒背景でも映える */
+  color: black;
+  padding: 8px 16px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: MS明朝;
+  display: inline-block;
+  transition: 0.2s;
+  text-align: right;
+}
+
+.btn-link:hover {
+  background-color: #829cb7;
+  transform: translateY(-1px);
+}
+.list-title{
+    font-size: 70px;
+    font-family: "Libre Baskerville";
+    font-weight: 700;
+    display: flex;
+    margin-left: 350px;
+    align-items: center;
+    margin-top: 50px;
+}
+.user-name {
+  font-size: 35px;
+  color: white;
+  font-weight: 700;
+}
+
+.user-email {
+   font-size: 35px;
+  color: white;
+  font-weight: 700;
+}
+
+.user-profile {
+    font-size: 35px;
+  color: white;
+  font-weight: 700;
+}
+.user-info-box {
+  display: flex;
+  justify-content: space-between; 
+  gap: 20px; 
+  margin-top: 30px;
+}
+
+.user-info-box p {
+  flex: 1;        
+  text-align: center; 
+}
+.post{
+    font-size: 40px;
+    font-family: MS明朝;
+    text-align: center;
+}
+

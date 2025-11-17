@@ -1,0 +1,71 @@
+.remind{
+    font-family: MS ゴシック;
+    font-size: 25px;
+    display: flex;
+    
+}
+.goal h1{
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+    
+.goal {
+  width: fit-content;   /* 中身に合わせる */
+  margin-left: auto;    /* 右側へ寄せる */
+  margin-right: 400px;
+}
+.btn-edit {
+  background-color: rgba(255, 255, 255, 0.79); /* 落ち着いた明るめブルー */
+  color: black;
+  padding: 6px 12px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+  font-family: MS明朝;
+}
+
+.btn-edit:hover {
+  background-color: #829cb7;
+  transform: translateY(-1px);
+}
+
+/* ---- 削除ボタン ---- */
+.btn-delete {
+  background-color: rgba(255, 255, 255, 0.79); 
+  color: black;
+  font-family: MS明朝;
+  padding: 6px 12px;
+  border-radius: 2px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-delete:hover {
+  background-color: #829cb7;
+  transform: translateY(-1px);
+}
+.btn-link {
+  background-color: rgba(255, 255, 255, 0.79);
+  color: black;
+  padding: 8px 16px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 600;
+  font-family: MS明朝;
+  display: inline-block;
+  transition: 0.2s;
+}
+
+
+.index{
+    display: flex;
+}
+index th{
+    font-size: 35px;
+}
+

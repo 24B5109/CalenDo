@@ -10,11 +10,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+<body>
  <header>
-  <h1>CalenDo</h1>
+    <h1>CalenDo</h1>
+    <div class=new-goal><%= link_to "新規目標設定", new_tweet_path %></div>
+    <div class=my-page> <% if user_signed_in? %>
+    <%= link_to "マイページ", user_path(current_user.id) %>
+    <% end %></div>
+    <div class=back><%= link_to 'カレンダーに戻る', blogs_path %></div>
+ </header>
+ <main>
+  <%= yield %>
+ </main>
+ <footer>
   <div class="header-list">
-   <ul>
+    <ul>
     <% if user_signed_in? %>
      <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
     <% else %>
@@ -23,11 +33,6 @@
     <% end %>
    </ul>
   </div>
- </header>
- <main>
-  <%= yield %>
- </main>
-</body>
-
- 
+ </footer>
+ </body>
 </html>

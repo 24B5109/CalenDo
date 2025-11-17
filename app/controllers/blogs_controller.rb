@@ -60,16 +60,14 @@ class BlogsController < ApplicationController
         user = current_user
         time = Time.now
         jtime = Time.at(time, in: "+09:00")
-          user = current_user
-            if user.last_tweeted_date == nil
-              user.update!(last_tweeted_date: 0)
-            end
-        user.update!(
-        remind_date: jtime
-        )
+        user = current_user
+        if user.last_tweeted_date.nil?
+          user.update!(last_tweeted_date: Date.today)
+        end
+        user.update!(remind_date: Date.today)
     end
 
-  private
+private
 
   def blog_params
     params.require(:blog).permit(:title, :content, :start_time, :image, tag_ids: [])

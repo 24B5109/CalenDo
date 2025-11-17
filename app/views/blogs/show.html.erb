@@ -17,5 +17,5 @@
 <% @blog.tags.each do |tag| %>
     <span><%= tag.name %></span>
 <% end %>
-<%= link_to 'Edit', edit_blog_path(@blog) %> |
-<%= link_to 'Back', blogs_path %>
+<%= link_to '編集する', edit_blog_path(@blog) %> |
+<%= link_to '戻る', blogs_path %>

@@ -1,0 +1,35 @@
+.form-group{
+    font-size: 35px;
+    font-weight: 500;
+    font-family: MS 明朝;
+}
+.form-check{
+    width: 200px;
+}
+
+.title{
+    font-size: 25px;
+    font-weight: 600;
+    font-family:Libre Baskerville ;
+}
+.input[type="text"]{
+    width: 500px;
+}
+.field{
+    font-size: 25px;
+    font-weight: 600;
+    font-family:Libre Baskerville ;
+}
+.time{
+    font-size: 25px;
+    font-weight: 600;
+    font-family:Libre Baskerville ;
+}
+.content{
+    font-size: 25px;
+    font-weight: 600;
+    font-family:Libre Baskerville ;
+}
+.input[type="submit"]{
+    width: 200px;
+}

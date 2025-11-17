@@ -1,21 +1,16 @@
 
 <p id="notice"><%= notice %></p>
+<div class="remind">
+ <% if current_user.kaisuu == 1 %>
+  <h1>前日の投稿がされていません！
+  今日投稿してみませんか？</h1>
+ <% else %>
+  <p>現在の連続投稿回数 <%= current_user.kaisuu %>回</p>
+ <% end %>
+</div>
 
-<% if current_user.kaisuu == 1 %>
-<h1>前日の投稿がされていません！
-今日投稿してみませんか？</h1>
-<% else %>
-現在の連続投稿回数 <%= current_user.kaisuu %>回
-#もしあなたが投稿の連続回数を表示したい場合はこれを記入してください。
-<% end %>
-
-<h1>目標</h1>
-<%= link_to "新規目標設定", new_tweet_path %>
-<% @tweets.each do |t| %>
-        <%= t.goal %> 
-    <%= link_to "編集する", edit_tweet_path(t.id) %>
-  <% end %>
-<table>
+<div class="index">
+ <table>
   <thead>
     <tr>
       <th>タイトル</th>
@@ -23,28 +18,42 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-<% if user_signed_in? %>
-  <%= link_to "マイページ", user_path(current_user.id) %>
-<% end %>
+
   <tbody>
     <% @blogs.each do |blog| %>
       <tr>
-        <td><%= blog.title %></td>
-        <td><%= blog.content %></td>
-        <td><%= link_to 'Show', blog %></td>
-        <td><%= link_to 'Edit', edit_blog_path(blog.id) %></td>
-        <td><%= button_to 'Destroy',blog_path(blog.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="blog-title"><%= blog.title %></td>
+        <td class="blog-content"><%= blog.content %></td>
+        <td><%= link_to '投稿を見る', blog, class: "btn-link" %></td>
+        <td><%= link_to '投稿を編集する', edit_blog_path(blog.id), class: "btn-link" %></td>
+        <td><%= button_to 'Destroy', blog_path(blog.id), 
+        method: :delete, 
+        data: { confirm: 'Are you sure?' },
+        class: "btn-link" %></td>
         <td> <% if blog.image.attached? %>
             <%= image_tag blog.image, size: '250x200'%>
         <% end %></td>
       </tr>
     <% end %>
   </tbody>
-</table>
+ </table>
+
+ <div class="goal">
+   <h1>目標</h1>
+
+   <div class="mo">
+     <% @tweets.each do |t| %>
+      <p><%= t.goal %></p>
+      <%= link_to "編集する", edit_tweet_path(t.id), class: "btn-edit" %>
+     <% end %>
+   </div>
+ </div>
+</div>
 
 <br>
 
-<%= link_to '日記をかく', new_blog_path %>
+
+<%= link_to '日記をかく', new_blog_path, class: "btn-link" %>
 
 <%= month_calendar events: @blogs,attribute: :start_time, start_date_param: :start_date do |date, blogs| %>
   <%= date.day %>
@@ -59,10 +68,13 @@
     <% Tag.all.each do |t| %>
         <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
     <% end %>
+<% end %>
+
+<div class="form2">
     <%= submit_tag '検索' %>
-<% end %>
-<%= form_tag({controller:"blogs",action:"index"}, method: :get) do %>
-    <%= text_field_tag :tag %>
-    <%= submit_tag 'タグを追加' %>
-<% end %>
+    <%= form_tag({controller:"blogs",action:"index"}, method: :get) do %>
+      <%= text_field_tag :tag %>
+     <%= submit_tag 'タグを追加' %>
+    <% end %>
+</div>
 

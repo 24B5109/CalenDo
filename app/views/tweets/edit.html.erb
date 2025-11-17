@@ -1,4 +1,5 @@
 <%= form_for @tweet do |f| %>
+  <div class=edit>目標編集</div>
   <%= f.label :goal %>
   <%= f.text_field :goal, :size => 140 %> 
   <%= f.submit "編集する" %>

@@ -1,5 +1,5 @@
 <%= form_with(model: @blog, local: true) do |form| %>
-   <div class='form-group'>
+   <div class="form-group">
         <%= form.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
             <div class='form-check'>
                 <%= tag.label class: 'form-check-label' do %>

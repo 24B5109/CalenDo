@@ -1,10 +1,11 @@
-<h1>目標設定ページ</h1>
-<h3></h3>
-<%= form_for @tweet do |f| %>
+<div class="tweets-new">
+ <h1>新規目標設定</h1>
+ <%= form_for @tweet do |f| %>
   <div class="field">
     <%= f.label :goal %>
-    <%= f.text_field :goal, :size => 30 %>
+    <%= f.text_field :goal, class: "goal-input" %>
   </div>
-　<%= f.submit "目標にする" %>
-<% end %>
-<%= link_to "目標設定に戻る", tweets_path %>
+  <%= f.submit "目標にする", class: "btn-submit" %>
+ <% end %>
+ <%= link_to "目標一覧に戻る", tweets_path, class: "btn-back" %>
+</div>

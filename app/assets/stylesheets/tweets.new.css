@@ -1,0 +1,50 @@
+h1{
+    font-size: 75px;
+    margin-left: 50px;
+
+}
+.field{
+    font-size: 75px;
+}
+.goal-input {
+  width: 300px; /* 好きな大きさに変更 */
+  height: 35px; /* 高さも調整できる（任意） */
+  padding: 6px 10px;
+  font-size: 16px;
+  border-radius: 6px;
+}
+.btn-back {
+  background-color: rgba(255, 255, 255, 0.79); /* シックな青で目立つ */
+  color: rgb(0, 0, 0);
+  padding: 8px 16px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-family: MS明朝;
+  font-weight: 700;
+  font-size: 20px;
+  display: inline-block;
+  transition: 0.2s;
+}
+
+.btn-back:hover {
+  background-color: #829cb7;
+  transform: translateY(-1px);
+}
+.btn-submit {
+  background-color: rgba(255, 255, 255, 0.79); /* シックな青で目立つ */
+  color: rgb(0, 0, 0);
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: MS明朝;
+  font-weight: 700;
+  font-size: 20px;
+  display: inline-block;
+  transition: 0.2s;
+}
+
+.btn-submit:hover {
+   background-color: #829cb7;
+  transform: translateY(-1px);
+}
+

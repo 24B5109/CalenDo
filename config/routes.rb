@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
  
-  root to: 'tweets#index'
+  root to: 'blogs#index'
   
 end
